@@ -32,7 +32,7 @@ async def run_ask(question: str, config: RetrievalConfig) -> None:
     print(f"Top {SHOW_RANKED} of {len(result.ranked)} passages (* = sent to LLM):")
     for rank, s in enumerate(result.ranked[:SHOW_RANKED], 1):
         mark = "*" if rank <= config.top_k else " "
-        print(f" {mark}{rank:>2}. {s.passage.id:<4} score={s.score:.2f} sufficient={s.sufficient:.2f} related={s.related:.2f}  {s.passage.text[:60]!r}")
+        print(f" {mark}{rank:>2}. {s.passage.id:<4} score={s.score:.2f} sufficient={s.sufficient:.2f} partial={s.partial:.2f} related={s.related:.2f}  {s.passage.text[:60]!r}")
     print(f"Retrieval: {jev.calls} Jev calls, {jev.input_tokens} input tokens, {retrieval_s:.2f}s\n")
 
     async with AsyncOpenAI() as client:
