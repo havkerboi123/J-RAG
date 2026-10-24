@@ -7,6 +7,7 @@ from load_dataset import load_eval_dataset
 class Passage:
     id: str
     text: str
+    image: str | None = None  # page image as a data URL; when set, Clef judges the page from this alone
 
 
 @dataclass
@@ -34,3 +35,21 @@ def build_corpus() -> Corpus:
         references=[s.reference for s in samples],
         gold=gold,
     )
+
+
+DATASETS = ["amnesty", "vidore-hr"]
+
+
+def load_corpus(dataset: str, limit: int | None = None, images: bool = False) -> Corpus:
+    """Load a corpus by name, keeping at most `limit` questions. `images` attaches page images where the dataset has them."""
+    if dataset == "vidore-hr":
+        from vidore import build_vidore_corpus  # imported here: vidore.py imports this module
+
+        return build_vidore_corpus(limit, images=images)
+
+    corpus = build_corpus()
+    if limit is not None:
+        corpus.questions = corpus.questions[:limit]
+        corpus.references = corpus.references[:limit]
+        corpus.gold = corpus.gold[:limit]
+    return corpus

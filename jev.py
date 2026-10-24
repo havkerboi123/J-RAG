@@ -22,7 +22,9 @@ class JevClient:
             timeout=30,
         )
 
-    async def ask(self, state: dict | str, questions: dict) -> dict:
+    async def ask(self, state: dict | str, questions: dict, images: list[str] | None = None) -> dict:
+        if images:
+            raise ValueError("Jev is text-only; use ClefClient for page images")
         body = {"model": self.model, "state": state, "questions": questions}
         for attempt in range(self.max_retries + 1):
             async with self._sem:

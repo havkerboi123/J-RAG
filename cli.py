@@ -1,6 +1,7 @@
 """
 Ask a question:        python cli.py ask "What are the global implications of ...?"
 Score retrieval only:  python cli.py eval
+On amnesty_qa:          python cli.py --dataset amnesty eval
 """
 
 import argparse
@@ -11,44 +12,45 @@ from dotenv import load_dotenv
 from openai import AsyncOpenAI
 
 from answer import answer
-from corpus import build_corpus
-from jev import JevClient
-from retriever import RetrievalConfig, retrieve
+from corpus import DATASETS, load_corpus
+from retriever import ENGINES, RetrievalConfig, make_ranker, retrieve
 
 # Show the top this-many passages in `ask` output, so you can see what just missed the cut.
 SHOW_RANKED = 10
 
 
-async def run_ask(question: str, config: RetrievalConfig) -> None:
-    corpus = build_corpus()
-    jev = JevClient()
+async def run_ask(question: str, config: RetrievalConfig, dataset: str, engine: str) -> None:
+    corpus = load_corpus(dataset, images=engine == "clef")
+    ranker = make_ranker(engine)
     try:
         start = time.perf_counter()
-        result = await retrieve(jev, question, corpus.passages, config)
+        result = await retrieve(ranker, question, corpus.passages, config)
         retrieval_s = time.perf_counter() - start
     finally:
-        await jev.aclose()
+        await ranker.aclose()
 
     print(f"Top {SHOW_RANKED} of {len(result.ranked)} passages (* = sent to LLM):")
     for rank, s in enumerate(result.ranked[:SHOW_RANKED], 1):
         mark = "*" if rank <= config.top_k else " "
         print(f" {mark}{rank:>2}. {s.passage.id:<4} score={s.score:.2f} sufficient={s.sufficient:.2f} partial={s.partial:.2f} related={s.related:.2f}  {s.passage.text[:60]!r}")
-    print(f"Retrieval: {jev.calls} Jev calls, {jev.input_tokens} input tokens, {retrieval_s:.2f}s\n")
+    print(f"Retrieval: {ranker.calls} {engine} calls, {ranker.input_tokens} input tokens, {retrieval_s:.2f}s\n")
 
     async with AsyncOpenAI() as client:
         print(await answer(client, question, result.passages))
 
 
-async def run_eval(config: RetrievalConfig) -> None:
+async def run_eval(config: RetrievalConfig, dataset: str, limit: int | None, engine: str) -> None:
     """Retrieval-only check: do the passages handed to the LLM include the question's own source passages?"""
-    corpus = build_corpus()
-    jev = JevClient()
+    corpus = load_corpus(dataset, limit, images=engine == "clef")
+    print(f"{len(corpus.questions)} questions x {len(corpus.passages)} passages = "
+          f"{len(corpus.questions) * len(corpus.passages)} {engine} calls")
+    ranker = make_ranker(engine)
     try:
         start = time.perf_counter()
-        results = await asyncio.gather(*(retrieve(jev, q, corpus.passages, config) for q in corpus.questions))
+        results = await asyncio.gather(*(retrieve(ranker, q, corpus.passages, config) for q in corpus.questions))
         elapsed = time.perf_counter() - start
     finally:
-        await jev.aclose()
+        await ranker.aclose()
 
     n = len(results)
     print(f"Config: {config}, {len(corpus.passages)} passages, {n} questions")
@@ -61,13 +63,16 @@ async def run_eval(config: RetrievalConfig) -> None:
             recall += len(top & gold) / len(gold)
         sent = "  <- sent to LLM" if k == config.top_k else ""
         print(f"  top {k:>2}: hit rate {hits / n:>4.0%}, recall {recall / n:>4.0%}{sent}")
-    print(f"{jev.calls} Jev calls, {jev.input_tokens} input tokens, {elapsed:.1f}s")
+    print(f"{ranker.calls} {engine} calls, {ranker.input_tokens} input tokens, {elapsed:.1f}s")
 
 
 def main() -> None:
     load_dotenv()
-    parser = argparse.ArgumentParser(description="Per-passage Jev retrieval + GPT-5 mini answering")
+    parser = argparse.ArgumentParser(description="Per-passage Clef/Jev retrieval + GPT-5 mini answering")
     parser.add_argument("--top-k", type=int, default=5)
+    parser.add_argument("--dataset", choices=DATASETS, default="vidore-hr")
+    parser.add_argument("--limit", type=int, default=20, help="max questions to evaluate")
+    parser.add_argument("--engine", choices=ENGINES, default="clef")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("ask").add_argument("question")
     sub.add_parser("eval")
@@ -75,9 +80,9 @@ def main() -> None:
 
     config = RetrievalConfig(args.top_k)
     if args.command == "ask":
-        asyncio.run(run_ask(args.question, config))
+        asyncio.run(run_ask(args.question, config, args.dataset, args.engine))
     else:
-        asyncio.run(run_eval(config))
+        asyncio.run(run_eval(config, args.dataset, args.limit, args.engine))
 
 
 if __name__ == "__main__":

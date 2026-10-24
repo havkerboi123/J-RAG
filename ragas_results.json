@@ -1,0 +1,347 @@
+{
+  "config": {
+    "top_k": 5
+  },
+  "rows": [
+    {
+      "question": "What are the global implications of the USA Supreme Court ruling on abortion?",
+      "response": "Summary of global implications, based only on the provided passages:\n\n- The ruling reaches beyond U.S. borders because of the United States' geopolitical and cultural influence, affecting how other countries think about and approach abortion policy [1][3].  \n- It has created a \u201cchilling effect\u201d in international policy spaces, emboldening anti\u2011abortion state and non\u2011state actors to try to undermine human rights protections and laying groundwork for anti\u2011abortion legislative and policy attacks elsewhere [1].  \n- Advocates report concrete impacts on law reform abroad \u2014 for example, stalling the adoption and enforcement of progressive abortion guidelines in some African countries [1].  \n- International organizations and NGOs working on reproductive rights may face changes in funding, advocacy priorities, and partnerships with U.S. counterparts, producing ripple effects in the global reproductive\u2011justice movement [2].  \n- Where abortion is or becomes more restricted, marginalized people (low\u2011income women, young girls, immigrants) are disproportionately harmed \u2014 increasing the risk of unsafe, clandestine abortions and perpetuating poverty, inequality, and health risks [4][5].",
+      "reference": "The global implications of the USA Supreme Court ruling on abortion are significant. The ruling has led to limited or no access to abortion for one in three women and girls of reproductive age in states where abortion access is restricted. These states also have weaker maternal health support, higher maternal death rates, and higher child poverty rates. Additionally, the ruling has had an impact beyond national borders due to the USA's geopolitical and cultural influence globally. Organizations and activists worldwide are concerned that the ruling may inspire anti-abortion legislative and policy attacks in other countries. The ruling has also hindered progressive law reform and the implementation of abortion guidelines in certain African countries. Furthermore, the ruling has created a chilling effect in international policy spaces, empowering anti-abortion actors to undermine human rights protections.",
+      "passage_ids": [
+        "p0",
+        "p2",
+        "p1",
+        "p46",
+        "p47"
+      ],
+      "jev_sufficient": 0.93,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "factual_correctness": 0.6
+    },
+    {
+      "question": "Which companies are the main contributors to GHG emissions and their role in global warming according to the Carbon Majors database?",
+      "response": "The Carbon Majors database says a relatively small group of fossil-fuel companies are the main contributors: 100 existing companies (and eight defunct ones) have produced almost a trillion tons of GHGs over 150 years and are responsible for 71% of all GHG emissions since 1988 \u2014 i.e., they play a key role in the emissions that drive global warming [1]. These firms are mainly major oil and gas producers and coal mining companies whose activities have significantly contributed to climate change [3]. In the Americas, the top private emitters named are ExxonMobil, Chevron and Peabody, and the largest state-owned emitters are Mexico\u2019s Pemex followed by Venezuela\u2019s Petr\u00f3leos de Venezuela, S.A. (PDVSA) [2][1].",
+      "reference": "According to the Carbon Majors database, the main contributors to GHG emissions and their role in global warming are fossil fuel companies. These companies, both state-owned and private, have produced almost a trillion tons of GHG emissions in 150 years. The database shows that 100 existing fossil fuel companies, along with eight that no longer exist, are responsible for 71% of all GHG emissions since 1988. In the Americas, the private companies that have contributed the most emissions are ExxonMobil, Chevron, and Peabody, all from the United States. Among state-owned companies in the Americas, the largest emitter is Mexican company Pemex, followed by Venezuelan company Petr\u00f3leos de Venezuela, S.A. It is important to note that while people with fewer resources, particularly from countries in the global South, do not significantly contribute to climate change, they are the ones most affected by its impacts. Approximately half of the global population lives in areas that are \"very vulnerable\" to climate change, and it is people with limited development opportunities who face the greatest risks. This unequal impact disproportionately affects the human rights of those with fewer resources and greater vulnerability in the context of climate change in the global South. Additionally, between 2010 and 2020, human mortality due to climate disasters was 15 times higher in vulnerable regions and populations.",
+      "passage_ids": [
+        "p5",
+        "p8",
+        "p4",
+        "p6",
+        "p3"
+      ],
+      "jev_sufficient": 0.86,
+      "gold_recall": 1.0,
+      "context_recall": 0.8888888888888888,
+      "faithfulness": 0.8888888888888888,
+      "factual_correctness": 0.33
+    },
+    {
+      "question": "Which private companies in the Americas are the largest GHG emitters according to the Carbon Majors database?",
+      "response": "The Carbon Majors database identifies U.S. private companies ExxonMobil, Chevron, and Peabody as the largest GHG emitters in the Americas [1][2].",
+      "reference": "The largest private companies in the Americas that are the largest GHG emitters according to the Carbon Majors database are ExxonMobil, Chevron, and Peabody.",
+      "passage_ids": [
+        "p5",
+        "p8",
+        "p6",
+        "p4",
+        "p3"
+      ],
+      "jev_sufficient": 0.97,
+      "gold_recall": 0.6666666666666666,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "factual_correctness": 0.0
+    },
+    {
+      "question": "What action did Amnesty International urge its supporters to take in response to the killing of the Ogoni 9?",
+      "response": "Amnesty International urged supporters to sign petitions, write letters to government officials, take part in protests and demonstrations, raise awareness, and to deluge Nigerian authorities with appeals and letters of outrage [1][2].",
+      "reference": "Amnesty International urged its supporters to send appeals for the defenders' freedom to Nigerian authorities and later to send letters of outrage.",
+      "passage_ids": [
+        "p9",
+        "p10",
+        "p12",
+        "p14",
+        "p11"
+      ],
+      "jev_sufficient": 0.98,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "factual_correctness": 0.4
+    },
+    {
+      "question": "What are the recommendations made by Amnesty International to the Special Rapporteur on Human Rights Defenders?",
+      "response": "Amnesty International\u2019s recommendations (as reported in the passages) include:\n\n- Embed a focus on child and young human rights defenders (HRDs) in the Special Rapporteur\u2019s future work [1].  \n- Raise awareness about the differences between \u201cchild\u201d and \u201cyouth\u201d HRDs and the distinct contexts, needs, barriers and challenges each group faces [1].  \n- Incorporate age-disaggregated data on the lived experiences of child and young HRDs in all future reports or interventions by the Special Rapporteur [1].  \n- Create online and face-to-face safe spaces for child and young HRDs and their child- and youth-led organisations to actively engage with the Special Rapporteur and other human rights mechanisms [1].  \n- More broadly, call for greater accountability for perpetrators of violence and harassment against HRDs and for measures to ensure defenders\u2019 safety and their freedom to carry out their work [2].  \n- Provide detailed reporting and case-based recommendations calling for action to protect HRDs at risk (Amnesty\u2019s typical approach to the Special Rapporteur) [3].",
+      "reference": "The recommendations made by Amnesty International to the Special Rapporteur on Human Rights Defenders include embedding a focus on child and young HRDs in future work, raising awareness about the differences and challenges they face, incorporating age disaggregated data in reports, and creating safe spaces for engagement.",
+      "passage_ids": [
+        "p13",
+        "p12",
+        "p14",
+        "p10",
+        "p49"
+      ],
+      "jev_sufficient": 0.98,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 0.95,
+      "factual_correctness": 0.29
+    },
+    {
+      "question": "Who are the target audience of the two books created by Amnesty International on child rights?",
+      "response": "Primary targets are children and young people [1]. In addition, parents, teachers and other caregivers (families and educators) are also key target audiences [2] (the books are aimed at educating and empowering young readers) [3].",
+      "reference": "The target audience of the two books created by Amnesty International on child rights are children and young people.",
+      "passage_ids": [
+        "p17",
+        "p15",
+        "p16",
+        "p11",
+        "p13"
+      ],
+      "jev_sufficient": 0.96,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "factual_correctness": 0.4
+    },
+    {
+      "question": "Which right guarantees access to comprehensive information about past human rights violations, including the identities of the perpetrators and the fate of the victims, as well as the circumstances surrounding the violations?",
+      "response": "The right to truth \u2014 the victims' inalienable, non\u2011derogable right to know the circumstances of past human rights violations, including perpetrators' identities and the fate/whereabouts of victims [1][2][3].",
+      "reference": "The right that guarantees access to comprehensive information about past human rights violations, including the identities of the perpetrators and the fate of the victims, as well as the circumstances surrounding the violations, is the right to know the truth.",
+      "passage_ids": [
+        "p22",
+        "p20",
+        "p18",
+        "p21",
+        "p19"
+      ],
+      "jev_sufficient": 0.98,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "factual_correctness": 0.5
+    },
+    {
+      "question": "Who has the right to be fully informed about human rights violations, including the identities of the perpetrators and the fate of the victims?",
+      "response": "Victims of human rights violations and their families \u2014 who possess an inalienable, non\u2011derogable right to know the truth \u2014 and members of society generally have the right to be fully informed about violations, including the identities of perpetrators and the fate of victims [1][2].",
+      "reference": "The victims of gross human rights violations and their families, as well as members of society generally, have the right to be fully informed about human rights violations, including the identities of the perpetrators and the fate of the victims.",
+      "passage_ids": [
+        "p20",
+        "p22",
+        "p18",
+        "p21",
+        "p23"
+      ],
+      "jev_sufficient": 0.98,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "factual_correctness": 0.67
+    },
+    {
+      "question": "When can individuals be found guilty under Article 207.3 of the Russian Criminal Code?",
+      "response": "Individuals can be found guilty under Article 207.3 when their statements are contrary to the official position of the Russian authorities and are regarded by the prosecution and courts as \"false.\" The determination can hinge on the statements being intentionally misleading or deceptive and on the intent and impact of the statements (e.g., if made to obstruct justice or undermine the truth). [2][3][4]",
+      "reference": "Individuals can be found guilty under Article 207.3 of the Russian Criminal Code if their statements are contrary to the official position of the Russian authorities.",
+      "passage_ids": [
+        "p27",
+        "p25",
+        "p28",
+        "p29",
+        "p24"
+      ],
+      "jev_sufficient": 0.9,
+      "gold_recall": 0.6666666666666666,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "factual_correctness": 0.0
+    },
+    {
+      "question": "When does the prosecution consider statements contrary to the official position as 'false' under Article 207.3?",
+      "response": "They do so when the statements are contrary to the official position and are deemed intentionally misleading or deceptive \u2014 i.e., when the prosecution finds an intent to mislead (for example to obstruct justice, undermine the truth, or deliberately distort facts to mislead courts or authorities) [1][3][4].",
+      "reference": "The prosecution considers statements contrary to the official position as 'false' under Article 207.3 when they are in opposition to the official position of the Russian authorities.",
+      "passage_ids": [
+        "p25",
+        "p27",
+        "p28",
+        "p29",
+        "p31"
+      ],
+      "jev_sufficient": 0.94,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "factual_correctness": 0.0
+    },
+    {
+      "question": "What factors have contributed to the decline of independent civil society organizations in Nicaragua?",
+      "response": "Several factors are identified in the passages:\n\n- Government crackdown, increased control and restrictions on dissent and opposition, including closure of NGOs and civil society groups [2][1].  \n- Arrests, harassment and constant threats of arrest or detention of human rights defenders and protesters [1][5].  \n- Restrictive/repressive laws and criminalization of social organizing, mobilization and freedom of expression [1][2].  \n- Violent repression of protests, enforced silence through violence and expropriation of organizations' belongings and premises [1].  \n- Restrictions on social media and other limits on civic space that impede organizing and advocacy [1][2].  \n- Economic challenges: limited funding opportunities and a shrinking space for civic engagement that make it difficult for organizations to sustain operations [3].",
+      "reference": "The factors that have contributed to the decline of independent civil society organizations in Nicaragua include arrests and harassment of human rights defenders, restrictive NGO laws, violent repression of protests, closure of civil society organizations and community centers, expropriation of belongings and premises, criminalization of social organizing and mobilization, restrictions on freedom of expression, implementation of repressive laws, constant threats of arrest and detention, restrictions on social media, and the imposition of silence through violence and repression.",
+      "passage_ids": [
+        "p31",
+        "p32",
+        "p30",
+        "p2",
+        "p12"
+      ],
+      "jev_sufficient": 0.96,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 0.875,
+      "factual_correctness": 0.83
+    },
+    {
+      "question": "What conditions designate wetlands as Ramsar sites?",
+      "response": "Wetlands are designated as Ramsar sites when they fulfil the Convention\u2019s criteria for \u201cwetlands of international importance.\u201d Specifically these criteria include features such as the presence of rare or unique ecosystems, support for a diverse range of plant and animal species, and the provision of key ecosystem services (for example water purification and flood control) [2][1].",
+      "reference": "The conditions that designate wetlands as Ramsar sites are when they fulfill the criteria for identifying wetlands of international importance, as established under the Convention on Wetlands.",
+      "passage_ids": [
+        "p33",
+        "p35",
+        "p34",
+        "p39",
+        "p41"
+      ],
+      "jev_sufficient": 0.94,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "factual_correctness": 0.67
+    },
+    {
+      "question": "Where was COP15 held in 2022?",
+      "response": "The passages disagree. Passages [1] and [2] say COP15 was held in Montreal, Canada, in late 2022 [1][2], while passage [3] (supported by [4]) says COP15 was held in Kunming, China in 2022 [3][4]. Because of this contradiction, the provided passages do not allow a single, definitive answer.",
+      "reference": "COP15 was held in Montreal, Canada in 2022.",
+      "passage_ids": [
+        "p41",
+        "p37",
+        "p38",
+        "p36",
+        "p42"
+      ],
+      "jev_sufficient": 0.99,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "factual_correctness": 0.0
+    },
+    {
+      "question": "What is the purpose of the agreement known as 30x30?",
+      "response": "The 30x30 agreement aims to designate and protect 30% of the world\u2019s land and oceans by 2030 in order to conserve biodiversity, safeguard ecosystems and species, and support climate goals (e.g., carbon storage) through sustainable land and sea management [1][2][3].",
+      "reference": "The purpose of the agreement known as 30x30 is to designate 30% of the world's land and sea masses as protected areas for biodiversity conservation by 2030.",
+      "passage_ids": [
+        "p39",
+        "p41",
+        "p40",
+        "p37",
+        "p38"
+      ],
+      "jev_sufficient": 0.98,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "factual_correctness": 0.67
+    },
+    {
+      "question": "Who failed to explicitly recognize Indigenous Peoples' lands and territories as a distinct category of protected area at COP15?",
+      "response": "States failed to explicitly recognize Indigenous Peoples' lands and territories as a distinct category of protected area at COP15 [1][2][3].",
+      "reference": "The States failed to explicitly recognize Indigenous Peoples' lands and territories as a distinct category of protected area at COP15.",
+      "passage_ids": [
+        "p37",
+        "p41",
+        "p44",
+        "p42",
+        "p43"
+      ],
+      "jev_sufficient": 0.82,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "factual_correctness": 1.0
+    },
+    {
+      "question": "What are the consequences of criminalizing abortion for marginalized individuals?",
+      "response": "The passages list multiple, overlapping harms of abortion criminalization for marginalized people:\n\n- Forced use of unsafe, clandestine methods that put lives and health at risk; criminalization is the main contributor to millions of unsafe abortions and higher maternal mortality/morbidity [2]; marginalized people often resort to these methods [1][2].  \n- Increased risk of death and serious health complications from preventable causes because criminalization undermines access to health services [2][1].  \n- Stigma, lack of information and disinformation that particularly harm those who need, provide, or assist with abortions, worsening outcomes for marginalized groups [2].  \n- Young girls and survivors of sexual violence are often kept unaware of rights and forced to carry pregnancies to term [2].  \n- Disproportionate impacts on low-income people, young girls, migrants and refugees, Indigenous and Afro-descendent women, and other historically discriminated groups, deepening poverty, inequality, and discrimination and denying bodily autonomy [1][2].  \n- Financial and emotional burdens, and broader systemic harms (reduced access to care, higher maternal death and child poverty in places with restrictive laws) documented where access has been rolled back [3][4].  \n- Criminalization can also coincide with repression of civil society and SRR defenders, closing organizations and community centers that provide support and thereby further limiting services for marginalized people [5].\n\nIf you want, I can produce a shorter summary or extract just the consequences affecting a specific marginalized group (e.g., migrants, adolescents).",
+      "reference": "The consequences of criminalizing abortion for marginalized individuals include increased stigma, lack of information, and disinformation. This can have severe and irreversible effects on these individuals. Girls and young women may be forced to carry pregnancies resulting from sexual violence due to a lack of knowledge about their rights. Marginalized individuals, such as those living in poverty, historically discriminated against, Indigenous and Afro-descendent women, migrants, and refugees, are disproportionately affected by abortion criminalization. The criminalization of abortion is a major factor contributing to the high number of unsafe abortions, which leads to increased maternal mortality and morbidity. Access to health services is undermined, resulting in preventable maternal deaths and complications. Marginalized individuals are forced to resort to unsafe clandestine abortion methods, putting their lives and health at risk. In Nigeria, restrictive abortion laws make it difficult to access safe abortion care.",
+      "passage_ids": [
+        "p46",
+        "p45",
+        "p47",
+        "p0",
+        "p31"
+      ],
+      "jev_sufficient": 0.95,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 0.9117647058823529,
+      "factual_correctness": 0.33
+    },
+    {
+      "question": "What responsibilities should social media companies have in relation to ensuring access to accurate sexual and reproductive health information?",
+      "response": "Social media companies should:\n\n- Invest in human oversight of AI content\u2011moderation systems so users can equally exercise their rights and access accurate sexual and reproductive health (SRH) information (including on abortion), regardless of language or political view [1][4].  \n- Ensure information on their platforms is accurate, reliable and evidence\u2011based, and take active steps to combat SRH misinformation and disinformation that can harm health [2][3].  \n- Be accountable and transparent in how they monitor and regulate content, and take proactive measures to promote accurate SRH information to help people make informed decisions [3].  \n- Uphold human\u2011rights responsibilities (including human rights due diligence) to address risks and abuses arising from their business model [1][4].  \n- Educate users about platform security and privacy features to create safer access to SRH information, while navigating the balance between protecting users from harmful content and upholding free expression [4][5].",
+      "reference": "Social media companies should have the responsibility to invest in human oversight of their content moderation systems to ensure equal access to accurate sexual and reproductive health information. They should also engage in human rights due diligence to address risks and abuses related to their business model.",
+      "passage_ids": [
+        "p49",
+        "p48",
+        "p50",
+        "p51",
+        "p53"
+      ],
+      "jev_sufficient": 0.94,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 0.9166666666666666,
+      "factual_correctness": 0.33
+    },
+    {
+      "question": "What role do social media companies play in protecting users' rights online, regardless of their language and political views?",
+      "response": "They are expected to actively protect and enable users\u2019 rights by, for example:\n- Respecting all human rights wherever they operate and engaging in human\u2011rights due diligence to address risks and abuses linked to their business model [1].\n- Investing in human oversight of AI\u2011driven content\u2011moderation systems so users can equally exercise their rights online regardless of language or political views (and can access accurate sexual and reproductive\u2011health information) [1][2].\n- Ensuring the information on their platforms is accurate and taking steps to combat misinformation and disinformation that can harm health and well\u2011being [5].\n- Balancing protection from harmful content with free\u2011expression principles while navigating the legal and ethical complexities of moderation decisions [4].\n- Providing user education and awareness about security and privacy features to help create a safer online experience, particularly for vulnerable groups [1].",
+      "reference": "Social media companies play a role in protecting users' rights online, regardless of their language and political views, by investing in human oversight of content moderation systems, engaging in human rights due diligence, and educating users about security and privacy features.",
+      "passage_ids": [
+        "p51",
+        "p49",
+        "p52",
+        "p53",
+        "p48"
+      ],
+      "jev_sufficient": 0.94,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "factual_correctness": 0.29
+    },
+    {
+      "question": "What labor abuses were documented by Amnesty International in Qatar and how do they relate to the kafala system?",
+      "response": "Amnesty documented multiple forms of worker abuse and exploitation, and linked them to the kafala sponsorship system.\n\nWhat was documented\n- Long working hours, low wages and poor living conditions [3].  \n- Specific employer practices: allowing workers only one day off per month, threatening salary cuts for taking more rest, failing to provide pay slips, and housing workers in dirty, overcrowded rooms (six people per room in bunkbeds) [1].  \n- Employer tactics that put workers at risk: cancelling or refusing to renew residence permits, or falsely reporting employees as having \u201cabsconded,\u201d actions that can lead to arrest and deportation [1].\n\nHow this relates to the kafala system\n- Under kafala, a migrant worker\u2019s legal status is tied to their employer, giving employers significant control and making it hard for workers to leave abusive situations or seek redress [2].  \n- Even after 2018\u20132020 reforms that formally removed exit-permit and NOC requirements for most workers, other barriers and informal practices (need for \u201crelease papers,\u201d resignation letters, misuse of non\u2011compete clauses) have persisted and allow employers to continue exercising control [1][4].\n\nIf you want, I can list the specific reforms and remaining barriers in more detail using the passages above.",
+      "reference": "Amnesty International documented labor abuses in Qatar, including workers being permitted only one day off each month, threats of salary cuts for taking more rest time, failure to provide pay slips, and overcrowded and dirty living conditions. These labor abuses relate to the kafala system because the kafala system imposes tight restrictions on migrant workers' freedom of movement and ability to change jobs without their employer's permission. This system allows abusive employers to control their workforce by canceling residence permits, falsely reporting employees as absconding, and using non-compete clauses to prevent workers from changing jobs.",
+      "passage_ids": [
+        "p56",
+        "p54",
+        "p55",
+        "p58",
+        "p59"
+      ],
+      "jev_sufficient": 0.9,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 0.68,
+      "factual_correctness": 0.44
+    },
+    {
+      "question": "When did the government of Qatar start repealing restrictions on migrant workers?",
+      "response": "The government began repealing those restrictions between 2018 and 2020 [1][2].",
+      "reference": "The government of Qatar started repealing restrictions on migrant workers between 2018 and 2020.",
+      "passage_ids": [
+        "p58",
+        "p56",
+        "p59",
+        "p57",
+        "p55"
+      ],
+      "jev_sufficient": 0.85,
+      "gold_recall": 1.0,
+      "context_recall": 1.0,
+      "faithfulness": 1.0,
+      "factual_correctness": 0.5
+    }
+  ]
+}
