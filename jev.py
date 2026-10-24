@@ -27,8 +27,15 @@ class JevClient:
             raise ValueError("Jev is text-only; use ClefClient for page images")
         body = {"model": self.model, "state": state, "questions": questions}
         for attempt in range(self.max_retries + 1):
-            async with self._sem:
-                resp = await self._http.post(JEV_URL, json=body)
+            try:
+                async with self._sem:
+                    resp = await self._http.post(JEV_URL, json=body)
+            except httpx.TransportError:
+                # Dropped connection or timeout: retry rather than lose the whole run.
+                if attempt == self.max_retries:
+                    raise
+                await asyncio.sleep(2**attempt)
+                continue
             if resp.status_code not in RETRY_STATUSES or attempt == self.max_retries:
                 break
             await asyncio.sleep(float(resp.headers.get("retry-after", 2**attempt)))

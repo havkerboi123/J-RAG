@@ -77,7 +77,7 @@ def main() -> None:
     parser.add_argument("--dataset", choices=DATASETS, default="vidore-hr")
     parser.add_argument("--limit", type=int, default=20, help="max questions to evaluate")
     parser.add_argument("--engine", choices=ENGINES, default="clef")
-    parser.add_argument("--window", type=int, default=3, help="consecutive pages per Clef call (1 = one page per call)")
+    parser.add_argument("--window", type=int, default=1, help="consecutive pages per Clef call (1 = one page per call)")
     parser.add_argument("--neighbours", type=int, default=1, help="pages either side of each top page also sent to the LLM")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("ask").add_argument("question")
