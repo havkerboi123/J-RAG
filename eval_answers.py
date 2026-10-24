@@ -5,7 +5,8 @@ End-to-end eval: retrieve pages, answer from them, then check both against the d
   Answer:    which key points of the dataset's reference answer does our answer cover?
 
     python eval_answers.py --limit 1
-    python eval_answers.py --limit 20 --engine jev --dataset amnesty
+    python eval_answers.py --limit 20 --window 1
+    python eval_answers.py --limit 20 --engine jev --dataset amnesty --window 1
 """
 
 import argparse
@@ -21,7 +22,7 @@ from pydantic import BaseModel
 
 from answer import answer
 from corpus import DATASETS, load_corpus
-from retriever import ENGINES, RetrievalConfig, make_ranker, retrieve
+from retriever import ENGINES, RetrievalConfig, calls_per_question, make_ranker, retrieve
 
 JUDGE_MODEL = "gpt-5-mini"
 RESULTS_PATH = "eval_results.json"
@@ -63,8 +64,9 @@ def ndcg_at_10(ranked_ids: list[str], gold: set[str]) -> float:
 
 async def run(config: RetrievalConfig, dataset: str, limit: int | None, engine: str) -> None:
     corpus = load_corpus(dataset, limit, images=engine == "clef")
-    print(f"{len(corpus.questions)} questions x {len(corpus.passages)} pages = "
-          f"{len(corpus.questions) * len(corpus.passages):,} {engine} calls")
+    per_question = calls_per_question(corpus.passages, config)
+    print(f"{len(corpus.questions)} questions x {per_question} calls ({len(corpus.passages)} pages, "
+          f"window {config.window}) = {len(corpus.questions) * per_question:,} {engine} calls")
     openai_client = AsyncOpenAI()
     ranker = make_ranker(engine)
     sem = asyncio.Semaphore(MAX_CONCURRENCY)
@@ -128,9 +130,10 @@ def main() -> None:
     parser.add_argument("--dataset", choices=DATASETS, default="vidore-hr")
     parser.add_argument("--limit", type=int, default=20, help="max questions to evaluate")
     parser.add_argument("--engine", choices=ENGINES, default="clef")
+    parser.add_argument("--window", type=int, default=3, help="consecutive pages per Clef call (1 = one page per call)")
     args = parser.parse_args()
 
-    asyncio.run(run(RetrievalConfig(args.top_k), args.dataset, args.limit, args.engine))
+    asyncio.run(run(RetrievalConfig(args.top_k, args.window), args.dataset, args.limit, args.engine))
 
 
 if __name__ == "__main__":

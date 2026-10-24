@@ -1,7 +1,8 @@
 """
 Ask a question:        python cli.py ask "What are the global implications of ...?"
 Score retrieval only:  python cli.py eval
-On amnesty_qa:          python cli.py --dataset amnesty eval
+One page per call:     python cli.py --window 1 eval
+On amnesty_qa:         python cli.py --dataset amnesty --window 1 eval
 """
 
 import argparse
@@ -13,7 +14,7 @@ from openai import AsyncOpenAI
 
 from answer import answer
 from corpus import DATASETS, load_corpus
-from retriever import ENGINES, RetrievalConfig, make_ranker, retrieve
+from retriever import ENGINES, RetrievalConfig, calls_per_question, make_ranker, retrieve
 
 # Show the top this-many passages in `ask` output, so you can see what just missed the cut.
 SHOW_RANKED = 10
@@ -42,8 +43,9 @@ async def run_ask(question: str, config: RetrievalConfig, dataset: str, engine: 
 async def run_eval(config: RetrievalConfig, dataset: str, limit: int | None, engine: str) -> None:
     """Retrieval-only check: do the passages handed to the LLM include the question's own source passages?"""
     corpus = load_corpus(dataset, limit, images=engine == "clef")
-    print(f"{len(corpus.questions)} questions x {len(corpus.passages)} passages = "
-          f"{len(corpus.questions) * len(corpus.passages)} {engine} calls")
+    per_question = calls_per_question(corpus.passages, config)
+    print(f"{len(corpus.questions)} questions x {per_question} calls ({len(corpus.passages)} passages, "
+          f"window {config.window}) = {len(corpus.questions) * per_question:,} {engine} calls")
     ranker = make_ranker(engine)
     try:
         start = time.perf_counter()
@@ -73,12 +75,13 @@ def main() -> None:
     parser.add_argument("--dataset", choices=DATASETS, default="vidore-hr")
     parser.add_argument("--limit", type=int, default=20, help="max questions to evaluate")
     parser.add_argument("--engine", choices=ENGINES, default="clef")
+    parser.add_argument("--window", type=int, default=3, help="consecutive pages per Clef call (1 = one page per call)")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("ask").add_argument("question")
     sub.add_parser("eval")
     args = parser.parse_args()
 
-    config = RetrievalConfig(args.top_k)
+    config = RetrievalConfig(args.top_k, args.window)
     if args.command == "ask":
         asyncio.run(run_ask(args.question, config, args.dataset, args.engine))
     else:

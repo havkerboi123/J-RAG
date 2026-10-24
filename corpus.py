@@ -8,6 +8,8 @@ class Passage:
     id: str
     text: str
     image: str | None = None  # page image as a data URL; when set, Clef judges the page from this alone
+    doc_id: str = ""  # source report, so page windows never span two reports
+    page: int = 0  # page number within `doc_id`
 
 
 @dataclass

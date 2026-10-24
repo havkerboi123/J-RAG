@@ -23,7 +23,7 @@ def to_data_url(image) -> str:
 
 def build_vidore_corpus(limit: int | None = None, seed: int = 0, images: bool = False) -> Corpus:
     # Without `images`, the image column is never read, so pages are downloaded but not decoded.
-    page_columns = ["corpus_id", "markdown", "image"] if images else ["corpus_id", "markdown"]
+    page_columns = ["corpus_id", "doc_id", "page_number_in_doc", "markdown"] + (["image"] if images else [])
     pages = load_dataset(DATASET, data_dir="corpus", split="test").select_columns(page_columns)
     queries = load_dataset(DATASET, data_dir="queries", split="test").select_columns(
         ["query_id", "query", "answer", "language"]
@@ -47,7 +47,17 @@ def build_vidore_corpus(limit: int | None = None, seed: int = 0, images: bool = 
         image = to_data_url(p["image"]) if images else None
         # Without an image, a page with no OCR text (e.g. a full-page chart) has nothing to judge.
         if text or image:
-            passages.append(Passage(id=f"page{p['corpus_id']}", text=text, image=image))
+            passages.append(
+                Passage(
+                    id=f"page{p['corpus_id']}",
+                    text=text,
+                    image=image,
+                    doc_id=p["doc_id"],
+                    page=p["page_number_in_doc"],
+                )
+            )
+    # Reading order, so consecutive passages are consecutive pages of the same report.
+    passages.sort(key=lambda p: (p.doc_id, p.page))
 
     return Corpus(
         passages=passages,
