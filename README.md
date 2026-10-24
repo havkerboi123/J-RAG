@@ -36,3 +36,15 @@ the question I wanted to answer: **can you build RAG without embeddings or a vec
                           answer
 ```
 
+## Experiment
+
+tested on [amnesty_qa](https://huggingface.co/datasets/vibrantlabsai/amnesty_qa): 20 questions, each with 3 source passages. all 60 passages pooled into one corpus, so Jev has to find each question's 3 among 60. answers scored with [ragas](https://docs.ragas.io).
+
+| metric | score |
+|---|---|
+| source passages in top 5 | 0.97 |
+| context recall | 0.99 |
+| faithfulness | 0.96 |
+
+ ~$0.001 of Jev per question
+
