@@ -1,0 +1,12 @@
+[project]
+name = "j-rag"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "datasets>=5.1.0",
+    "httpx>=0.28.1",
+    "langchain-community<0.4",
+    "openai>=3.3.0",
+    "python-dotenv>=1.2.4",
+    "ragas>=0.4.3",
+]
