@@ -7,7 +7,9 @@ With `window>1` (page images only), each call shows Clef that many consecutive p
 report, overlapping by one page, and asks the questions separately for each page. Pages get
 their neighbours as context but keep their own score; a page seen in two windows keeps its best.
 
-Either way, calls run in parallel, pages are ranked by score and the best `top_k` go to the LLM.
+Either way, calls run in parallel and pages are ranked by score. The best `top_k` go to the LLM,
+each with `neighbours` pages either side from the same report, so an answer split across pages
+reaches the LLM whole without paying Clef for windows.
 """
 
 import asyncio
@@ -100,7 +102,8 @@ def make_ranker(engine: str) -> Ranker:
 @dataclass
 class RetrievalConfig:
     top_k: int = 5
-    window: int = 3  # pages per call; 1 scores each page on its own
+    window: int = 1  # pages per Clef call; 1 scores each page on its own
+    neighbours: int = 1  # pages either side of each top page also sent to the LLM (same report only)
 
 
 def make_windows(passages: list[Passage], size: int) -> list[list[Passage]]:
@@ -113,6 +116,32 @@ def make_windows(passages: list[Passage], size: int) -> list[list[Passage]]:
             if start + size >= len(doc_pages):
                 break
     return windows
+
+
+def with_neighbours(top: list[Passage], passages: list[Passage], n: int) -> list[Passage]:
+    """Each top page with up to `n` pages either side from the same report, in reading order, no repeats.
+
+    `passages` must be in reading order. Passages without a report (plain text corpora) get no neighbours.
+    """
+    position = {p.id: i for i, p in enumerate(passages)}
+    context: list[Passage] = []
+    seen: set[str] = set()
+    for page in top:
+        i = position[page.id]
+        block = [
+            passages[j]
+            for j in range(max(i - n, 0), min(i + n + 1, len(passages)))
+            if page.doc_id and passages[j].doc_id == page.doc_id
+        ] or [page]
+        for p in block:
+            if p.id not in seen:
+                seen.add(p.id)
+                context.append(p)
+    if not all(p.doc_id for p in context):
+        return context  # plain text passages: keep rank order
+    # Group by report (best-ranked report first) and keep pages in reading order within each.
+    report_rank = {doc: r for r, doc in reversed(list(enumerate(p.doc_id for p in context)))}
+    return sorted(context, key=lambda p: (report_rank[p.doc_id], position[p.id]))
 
 
 def calls_per_question(passages: list[Passage], config: RetrievalConfig) -> int:
@@ -133,13 +162,14 @@ class ScoredPassage:
 
 @dataclass
 class Retrieval:
-    passages: list[Passage]
+    top: list[Passage]  # the best `top_k` pages
+    passages: list[Passage]  # what the LLM gets: `top` plus their neighbours
     ranked: list[ScoredPassage]  # every passage, best first
 
     @property
     def sufficient(self) -> float:
-        """Highest confidence that a passage sent to the LLM answers the question."""
-        return max((s.sufficient for s in self.ranked[: len(self.passages)]), default=0.0)
+        """Highest confidence that one of the top pages answers the question."""
+        return max((s.sufficient for s in self.ranked[: len(self.top)]), default=0.0)
 
 
 async def score_passage(ranker: Ranker, question: str, passage: Passage) -> ScoredPassage:
@@ -201,4 +231,5 @@ async def retrieve(
                 best[s.passage.id] = s
         scored = list(best.values())
     ranked = sorted(scored, key=lambda s: s.score, reverse=True)
-    return Retrieval([s.passage for s in ranked[: config.top_k]], ranked)
+    top = [s.passage for s in ranked[: config.top_k]]
+    return Retrieval(top=top, passages=with_neighbours(top, passages, config.neighbours), ranked=ranked)

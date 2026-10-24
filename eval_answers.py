@@ -5,7 +5,7 @@ End-to-end eval: retrieve pages, answer from them, then check both against the d
   Answer:    which key points of the dataset's reference answer does our answer cover?
 
     python eval_answers.py --limit 1
-    python eval_answers.py --limit 20 --window 1
+    python eval_answers.py --limit 20 --window 3 --neighbours 0
     python eval_answers.py --limit 20 --engine jev --dataset amnesty --window 1
 """
 
@@ -85,6 +85,7 @@ async def run(config: RetrievalConfig, dataset: str, limit: int | None, engine: 
             "response": response,
             "gold_pages": sorted(gold),
             "top_pages": ranked_ids[:10],
+            "llm_pages": [p.id for p in result.passages],
             "hit@5": float(bool(set(ranked_ids[:5]) & gold)),
             "recall@5": len(set(ranked_ids[:5]) & gold) / len(gold),
             "recall@10": len(set(ranked_ids[:10]) & gold) / len(gold),
@@ -131,9 +132,10 @@ def main() -> None:
     parser.add_argument("--limit", type=int, default=20, help="max questions to evaluate")
     parser.add_argument("--engine", choices=ENGINES, default="clef")
     parser.add_argument("--window", type=int, default=3, help="consecutive pages per Clef call (1 = one page per call)")
+    parser.add_argument("--neighbours", type=int, default=1, help="pages either side of each top page also sent to the LLM")
     args = parser.parse_args()
 
-    asyncio.run(run(RetrievalConfig(args.top_k, args.window), args.dataset, args.limit, args.engine))
+    asyncio.run(run(RetrievalConfig(args.top_k, args.window, args.neighbours), args.dataset, args.limit, args.engine))
 
 
 if __name__ == "__main__":

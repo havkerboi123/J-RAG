@@ -1,7 +1,7 @@
 """
 Ask a question:        python cli.py ask "What are the global implications of ...?"
 Score retrieval only:  python cli.py eval
-One page per call:     python cli.py --window 1 eval
+3-page Clef windows:   python cli.py --window 3 eval
 On amnesty_qa:         python cli.py --dataset amnesty --window 1 eval
 """
 
@@ -34,6 +34,8 @@ async def run_ask(question: str, config: RetrievalConfig, dataset: str, engine: 
     for rank, s in enumerate(result.ranked[:SHOW_RANKED], 1):
         mark = "*" if rank <= config.top_k else " "
         print(f" {mark}{rank:>2}. {s.passage.id:<4} score={s.score:.2f} sufficient={s.sufficient:.2f} partial={s.partial:.2f} related={s.related:.2f}  {s.passage.text[:60]!r}")
+    print(f"Sent to LLM (top {config.top_k} + {config.neighbours} neighbour(s) each side): "
+          f"{[p.id for p in result.passages]}")
     print(f"Retrieval: {ranker.calls} {engine} calls, {ranker.input_tokens} input tokens, {retrieval_s:.2f}s\n")
 
     async with AsyncOpenAI() as client:
@@ -76,12 +78,13 @@ def main() -> None:
     parser.add_argument("--limit", type=int, default=20, help="max questions to evaluate")
     parser.add_argument("--engine", choices=ENGINES, default="clef")
     parser.add_argument("--window", type=int, default=3, help="consecutive pages per Clef call (1 = one page per call)")
+    parser.add_argument("--neighbours", type=int, default=1, help="pages either side of each top page also sent to the LLM")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("ask").add_argument("question")
     sub.add_parser("eval")
     args = parser.parse_args()
 
-    config = RetrievalConfig(args.top_k, args.window)
+    config = RetrievalConfig(args.top_k, args.window, args.neighbours)
     if args.command == "ask":
         asyncio.run(run_ask(args.question, config, args.dataset, args.engine))
     else:
