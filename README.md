@@ -1,10 +1,10 @@
 # J-RAG
 
-A hobby project for playing around with [Jev](https://typesafe.ai), TypeSafe AI's "System One" decision model, as the retrieval layer of a RAG system.
+playing around with [Jev](https://typesafe.ai), TypeSafe AI's "System One" decision model, as the retrieval layer of a RAG system.
 
-The question I wanted to answer: **can you build RAG without embeddings or a vector database?** Instead of embedding passages and doing a similarity search, every passage is shown to Jev alongside the user's question, and Jev decides how useful it is. The best passages go to an LLM, which writes the answer.
+the question I wanted to answer: **can you build RAG without embeddings or a vector database?** Instead of embedding passages and doing a similarity search, every passage is shown to Jev alongside the user's question, and Jev decides how useful it is. The best passages go to an LLM, which writes the answer.
 
-This is an experiment, not a production system.
+
 
 ## Architecture
 
