@@ -74,7 +74,10 @@ PAGE_QUESTIONS = {
 # Consecutive pages shown together in one Clef call.
 WINDOW_FORMAT = (
     "The attached images are consecutive pages from one document, in reading order: image 1 comes first. "
-    "`pages` says which page each image is. Pages can mix running text, tables, charts, graphs, figures and "
+    "`pages` says which page each image is. Neighbouring pages are included, overlapping with other windows, "
+    "so you can see the context around each page: what a section is about, a table's header on the page before, "
+    "or text that continues onto the next page. Use them to understand each page, but judge each page on what "
+    "it contains itself. Pages can mix running text, tables, charts, graphs, figures and "
     "photos, and a table or section can continue from one page to the next. Read all of it, including the "
     "values shown in tables and charts."
 )
